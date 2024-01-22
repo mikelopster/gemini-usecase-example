@@ -172,7 +172,6 @@ app.post("/api/menu-extract", upload.single("myfile"), async (req, res) => {
 // Normal Prompt
 app.post("/api/chat", async (req, res) => {
   const { chat } = req.body
-  console.log("data", chat)
   const result = await chatPrompt(chat)
   res.json({ message: result })
 })
@@ -198,6 +197,13 @@ app.post("/api/upload", upload.single("myfile"), async (req, res) => {
     message: "File uploaded successfully",
     result,
   })
+})
+
+// History Prompt
+app.post("/api/history", async (req, res) => {
+  const { chat, history } = req.body
+  const result = await chatHistoryPrompt(chat, history)
+  res.json({ message: result })
 })
 
 const PORT = process.env.PORT || 8000
